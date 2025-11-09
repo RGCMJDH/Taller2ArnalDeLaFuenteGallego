@@ -4,7 +4,9 @@
  */
 package taller2_arnaldelafuentegallego;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -23,14 +25,70 @@ abstract class Curso {
         this.codigoAsignatura = codigoAsignatura;
     }
 
+    @Override
+
+    public String toString() {
+        String out = "";
+        out += "Curso: " + nombreCurso + " | Código: " + codigoAsignatura + "\n";
+
+        if (asignaturas != null && !asignaturas.isEmpty()) {
+            for (Asignatura a : asignaturas) {
+                out += "  - " + a.toString() + "\n"; // cada Asignatura cuenta su detalle
+            }
+        }
+        return out;
+    }
+
+    private String imprimeListaAsignaturas() {
+        if (asignaturas == null || asignaturas.isEmpty()) {
+            return "";
+        }
+        String res = "";
+        for (Asignatura a : asignaturas) {
+            res += a.toString() + "\n";
+        }
+        return res;
+    }
+
     // Curso - BACH O FP
     // Procedimientos
     private void ordenarAsignaturas() {
         // ordena las asignaturas por identificador o nombre en orden ascendente.
     }
 
-    public void agregarAsignatura(Asignatura a) { // CadaAsignatura
+    // Dentro de Curso (o donde la tengas). Usa this.asignaturas
+    public void agregarAsignatura(Scanner scan, int numAsign) {
 
+        for (int i = 1; i <= numAsign; i++) {
+            System.out.println("Asignatura " + i + ":");
+
+            System.out.print("  Nombre: ");
+            String nom = scan.nextLine();
+
+            System.out.print("  Código: ");
+            String cod = scan.nextLine();
+
+            System.out.print("Asignatura Obligatoria (1) u Optativa (2)? ");
+            int opc = Integer.parseInt(scan.nextLine()); // lee línea completa y convierte
+            switch (opc) {
+                case 1:
+                    // Obligatoria
+                    System.out.print("  Créditos: ");
+                    int cred = Integer.parseInt(scan.nextLine()); // igual: línea -> int
+                    asignaturas.add(new Obligatoria(cred, nom, cod, new ArrayList<>()));
+                    break;
+                case 2:
+                    // Optativa
+                    System.out.print("  ¿Asignatura Teórica o Práctica? ");
+                    String perfil = scan.nextLine(); // aquí ya no se cuela el \n
+                    this.asignaturas.add(new Optativa(perfil, nom, cod, new ArrayList<>()));
+                    break;
+                default:
+                    System.out.println("  Opción de asignatura no válida. Se omite esta entrada.");
+                    i--; // para reintentar la misma posición si quieres; o quita esta línea para saltarla
+                    break;
+            }
+        }
     }
 
     public void eliminarAsignatura(Asignatura a) {

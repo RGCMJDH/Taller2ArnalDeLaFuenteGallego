@@ -20,9 +20,13 @@ public class Bachiller extends Curso {
         this.tipoBachiller = tipoBachiller;
     }
 
-
-    // Procedimientos
-    void mostrarInfoBachiller() {
-        // muestra si es primero o segundo
+    @Override
+    public String toString() {
+        return "Bachiller (" + tipoBachiller + ")\n" + super.toString();
     }
+
+    public void mostrarInfoBachiller() {
+        System.out.println("El curso de Bachiller es " + tipoBachiller);
+    }
+
 }

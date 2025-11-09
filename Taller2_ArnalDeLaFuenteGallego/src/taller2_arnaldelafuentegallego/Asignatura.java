@@ -16,6 +16,11 @@ abstract class Asignatura {
     private String codigoAsignatura;
     private List<Estudiante> estudiantesMatriculado;
 
+    @Override
+    public String toString() {
+        return "Asignatura{" + "nombreAsignatura=" + nombreAsignatura + ", codigoAsignatura=" + codigoAsignatura + ", estudiantesMatriculado=" + estudiantesMatriculado + '}';
+    }
+
     public Asignatura(String nombreAsignatura, String codigoAsignatura, List<Estudiante> estudiantesMatriculado) {
         this.nombreAsignatura = nombreAsignatura;
         this.codigoAsignatura = codigoAsignatura;

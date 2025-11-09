@@ -19,9 +19,13 @@ public class FP extends Curso {
         this.especialidadFP = especialidadFP;
     }
 
-    
+    @Override
+    public String toString() {
+        return "FP (" + especialidadFP + ")\n" + super.toString();
+    }
 
     public String mostrarInfoFP() {
         return especialidadFP;
     }
+
 }

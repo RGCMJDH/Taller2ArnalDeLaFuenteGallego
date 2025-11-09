@@ -20,6 +20,11 @@ public class Obligatoria extends Asignatura {
         this.creditos = creditos;
     }
 
+    @Override
+    public String toString() {
+        return "Obligatoria ( Cts: " + creditos + ")\n" + super.toString();
+    }
+
     // Procedimientos
     void mostrarInfoObligatoria() {
         // muestra los créditos y tipo de asignatura obligatoria.

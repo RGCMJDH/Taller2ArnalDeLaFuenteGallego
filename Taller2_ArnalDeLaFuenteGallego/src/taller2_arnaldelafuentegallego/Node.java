@@ -17,6 +17,7 @@ public class Node {
         return c1;
     }
 
+    
     public Node getSeg() {
         return seg;
     }

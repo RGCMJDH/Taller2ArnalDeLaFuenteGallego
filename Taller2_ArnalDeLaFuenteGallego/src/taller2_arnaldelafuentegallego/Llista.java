@@ -38,7 +38,7 @@ public class Llista implements InterficieLista {
         }
 
         while (temp != null) {
-            System.out.println("Nodo " + i + ", Info -> " + temp.getC1());
+            System.out.println("Curso " + i + ", Info del curso: " + temp.getC1().toString());
             temp = temp.getSeg();
             i++;
         }

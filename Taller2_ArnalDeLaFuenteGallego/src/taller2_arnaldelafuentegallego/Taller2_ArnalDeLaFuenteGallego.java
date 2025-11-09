@@ -29,15 +29,16 @@ public class Taller2_ArnalDeLaFuenteGallego {
         int opcion;
 
         do {
-            System.out.println("\n=== MENÚ CURSOS ===");
-            System.out.println("1. Dar de alta curso");
-            System.out.println("2. Listar cursos");
-            System.out.println("3. Buscar curso por código");
-            System.out.println("4. Agregar asignatura a un curso");
-            System.out.println("5. Eliminar asignatura de un curso");
-            System.out.println("6. Eliminar curso");
-            System.out.println("0. Salir");
-            System.out.print("Elige opción: ");
+            System.out.println("\n=== GESTIÓN DE CURSOS ===");
+            System.out.println("1) Alta de curso");
+            System.out.println("2) Matricular a alumnos por asignatura");
+            System.out.println("3) Dar de baja un curso");
+            System.out.println("4) Dar de baja una asignatura");
+            System.out.println("5) Listar asignaturas por curso dado");
+            System.out.println("6) Dada un asignatura, decir a que curso pertenece");
+            System.out.println("7) Que asignaturas hace el alumno dado");
+            System.out.println("0) Salir");
+            System.out.print("Selecciona una opción: ");
 
             String input = scan.nextLine().trim();
             try {
@@ -61,6 +62,8 @@ public class Taller2_ArnalDeLaFuenteGallego {
                 }
                 case 6 -> {
                 }
+                case 7 -> {
+                }
                 case 0 -> {
                 }
                 default -> {
@@ -78,64 +81,53 @@ public class Taller2_ArnalDeLaFuenteGallego {
 
         System.out.println("¿Quieres que sea Bachiller (1) o FP (2)?");
         int opc = scan.nextInt();
-        scan.nextLine(); // <- limpia el \n que dejó nextInt
+        scan.nextLine(); 
 
         System.out.print("Nombre del curso: ");
         String nombreCurso = scan.nextLine();
 
-        System.out.print("Código del curso: ");
+        System.out.print("Codigo del curso: ");
         String codigoCurso = scan.nextLine();
 
-        System.out.print("¿Cuántas asignaturas tendrá el curso? ");
-        int numAsign = scan.nextInt();
-        scan.nextLine(); // si luego vas a seguir con más nextLine()
-
         List<Asignatura> asignaturas = new ArrayList<>();
-        Curso curso = null;
-        
+        //Curso curso = null;
+
         switch (opc) {
             case 1:
                 System.out.print("Tipo de Bachiller (Primero/Segundo): ");
                 String tipoBach = scan.nextLine();
-                for (int i = 1; i <= numAsign; i++) {
-                    System.out.println("Asignatura " + i + ":");
-                    System.out.print("  Nombre: ");
-                    String nom = scan.nextLine();
-                    System.out.print("  Código: ");
-                    String cod = scan.nextLine();
-                    System.out.print("  Créditos: ");
-                    int cred = scan.nextInt();
-                    
-                    // Creamos como Obligatoria (ajusta si tienes también 'Opcional')
-                    asignaturas.add(new Obligatoria(cred, nom, cod, new ArrayList<>()));
-                }  
-                curso = new Bachiller(tipoBach, nombreCurso, asignaturas, codigoCurso);
-                listaCursos.meteCurso(curso);
+
+                Bachiller b1 = new Bachiller(tipoBach, nombreCurso, asignaturas, codigoCurso);
+
+                System.out.print("¿Cuántas asignaturas quieres meter? ");
+                int num1 = scan.nextInt();
+                scan.nextLine();
+
+                b1.agregarAsignatura(scan, num1);
+
+                listaCursos.meteCurso(b1);
                 System.out.println("Bachiller dado de alta: " + nombreCurso + " (" + tipoBach + ")");
                 break;
-        
+
             case 2:
-                System.out.print("Especialidad FP (Informática, Mecánica, etc.): ");
-                String especialidad = scan.nextLine();
-                for (int i = 1; i <= numAsign; i++) {
-                    System.out.println("Asignatura " + i + ":");
-                    System.out.print("  Nombre: ");
-                    String nom = scan.nextLine();
-                    System.out.print("  Código: ");
-                    String cod = scan.nextLine();
-                    System.out.print("  Especialidad: ");
-                    String especialidadFP = scan.nextLine();
-                    
-                    // Creamos como Obligatoria (ajusta si tienes también 'Opcional')
-                    asignaturas.add(new Optativa(especialidadFP, nom, cod, new ArrayList<>()));
-                    // Tu firma real:
-                    // FP(String especialidadFP, String nombreCurso, List<Asignatura> asignaturas, String codigoAsignatura)
-                    curso = new FP(especialidad, nombreCurso, asignaturas, codigoCurso);
-                    listaCursos.meteCurso(curso);
-                    System.out.println("FP dado de alta: " + nombreCurso + " (" + especialidad + ")");
-                }   break;
+                System.out.print("Especialidad FP (Informatica, Mecanica, etc.): ");
+                String especialidadFP = scan.nextLine();
+
+                FP fp = new FP(especialidadFP, nombreCurso, asignaturas, codigoCurso);
+
+                System.out.print("¿Cuántas asignaturas quieres meter? ");
+                int num2 = scan.nextInt();
+                scan.nextLine(); // limpia el \n
+
+                // pasa el MISMO scanner
+                fp.agregarAsignatura(scan, num2);
+
+                listaCursos.meteCurso(fp);
+                System.out.println("FP dado de alta: " + nombreCurso + " (" + especialidadFP + ")");
+                break;
+
             default:
-                System.out.println("Opción no válida.");
+                System.out.println("Opcion no valida.");
                 break;
         }
     }

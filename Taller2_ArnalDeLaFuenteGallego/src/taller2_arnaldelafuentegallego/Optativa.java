@@ -11,6 +11,12 @@ import java.util.List;
  * @author alber
  */
 public class Optativa extends Asignatura {
+
+    @Override
+    public String toString() {
+        return "Optativa (" + perfil + ")\n" + super.toString();
+    }
+    //return "Optativa (" + perfil + ")\n" + super.toString();
     // Atributos
     private String perfil; // (por ejemplo, teórico o práctico)
 
@@ -18,7 +24,6 @@ public class Optativa extends Asignatura {
         super(nombreAsignatura, codigoAsignatura, estudiantesMatriculado);
         this.perfil = perfil;
     }
-
 
     // Procedimientos
     public void mostrarInfoOpcional() {
